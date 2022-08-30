@@ -11,7 +11,7 @@ api_router = APIRouter()
 
 @api_router.get("/")
 async def root():
-    return {"message": "TEST 3 "}
+    return {"message": "TEST 4 "}
 
 @api_router.get("/stores/")
 async def read_entities(db: Session = Depends(get_db)):

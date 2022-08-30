@@ -1,12 +1,10 @@
 import uvicorn
 from fastapi import FastAPI, APIRouter, Request
-from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 # from sqldb import crud, models, schemas
 # from sqldb.database import SessionLocal, engine
 
 app = FastAPI()
-# app.add_middleware(HTTPSRedirectMiddleware)
 api_router = APIRouter()
 
 

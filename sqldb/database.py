@@ -5,10 +5,12 @@ from sqlalchemy.orm import sessionmaker
 # from dotenv import load_dotenv
 # load_dotenv(override=True)
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:123soleil@localhost:5432/leclerc_test"
+# SQLALCHEMY_DATABASE_URL = "postgresql://postgres:123soleil@localhost:5432/leclerc_test"
 # SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL").replace('postgres://','postgresql://')
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+DATABASE_URL_LECLERC="postgres://WelleatAdminLeclerc:Gaudec42@leclerc-welleat.postgres.database.azure.com:5432/postgres"
+
+engine = create_engine(DATABASE_URL_LECLERC)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 Base = declarative_base()

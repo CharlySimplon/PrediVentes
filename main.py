@@ -3,6 +3,7 @@ from fastapi import FastAPI, APIRouter, Depends
 
 from sqldb import crud, models, schemas
 from sqldb.database import SessionLocal, engine, get_db
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 api_router = APIRouter()

@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:123soleil@localhost:5432/leclerc_test"
 # SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL").replace('postgres://','postgresql://')
 
-DATABASE_URL_LECLERC="postgres://WelleatAdminLeclerc:Gaudec42@leclerc-welleat.postgres.database.azure.com:5432/postgres"
+DATABASE_URL_LECLERC="postgresql://WelleatAdminLeclerc:Gaudec42@leclerc-welleat.postgres.database.azure.com:5432/postgres"
 
 engine = create_engine(DATABASE_URL_LECLERC)
 

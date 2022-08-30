@@ -12,14 +12,13 @@ api_router = APIRouter()
 async def root():
     return {"message": "TEST 3 "}
 
+
+@api_router.get("/stores/")
+async def read_entities(db: Session = Depends(get_db)):
+    entities = crud.get_all_entities(db)
+    return entities
+
 app.include_router(api_router)
-
-# @api_router.get("/stores/")
-# async def read_entities(db: Session = Depends(get_db)):
-#     entities = crud.get_all_entities(db)
-#     return entities
-
-
 
 
 if __name__ == "__main__":

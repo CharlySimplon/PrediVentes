@@ -30,12 +30,12 @@ def read_category_by_id(id: int, db : Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Entity not found")
     return category
 
-# @api_router.get("/product/{id}")
-# def read_product_by_id(id: int, db : Session = Depends(get_db)):
-#     product = crud.get_product_by_id(db, id=id)
-#     if product is None :
-#         raise HTTPException(status_code=404, detail="Entity ID not found")
-#     return product
+@api_router.get("/product/{id}")
+def read_product_by_id(id: int, db : Session = Depends(get_db)):
+    product = crud.get_product_by_id(db, id=id)
+    if product is None :
+        raise HTTPException(status_code=404, detail="Entity ID not found")
+    return product
 
 
 

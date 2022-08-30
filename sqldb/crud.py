@@ -15,5 +15,5 @@ def get_all_categories(db : Session):
 def get_category_by_id(db : Session, id: int):
     return db.query(models.Categories).filter(models.Categories.id == id).all()
 
-# def get_product_by_id(db : Session, id: int):
-#     return db.query(models.Products).filter(models.Products.id == id).all()
+def get_product_by_id(db : Session, id: int):
+    return db.query(models.Products).filter(models.Products.id == id).all()

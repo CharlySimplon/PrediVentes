@@ -32,7 +32,7 @@ class Products(Base):
     name = Column(String)
     quantity_unit = Column(String)
     price = Column(Float)
-    pricePerLiterOrKg = Column(Float)
+    pricerPerLiterOrKg = Column(Float)
     lifetime = Column(Integer)
     StockingId = Column(Integer, ForeignKey("Stockings.id"))
     stock_min = Column(Float)

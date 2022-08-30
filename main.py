@@ -10,7 +10,7 @@ api_router = APIRouter()
 
 @api_router.get("/")
 async def root():
-    return {"message": "TEST 2 "}
+    return {"message": "TEST 3 "}
 
 app.include_router(api_router)
 

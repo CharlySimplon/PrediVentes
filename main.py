@@ -1,6 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, APIRouter, Request, Depends
-# from sqlalchemy.orm import Session
+from fastapi import FastAPI, APIRouter
 
 # from sqldb import crud, models, schemas
 # from sqldb.database import SessionLocal, engine, get_db

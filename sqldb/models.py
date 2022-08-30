@@ -1,67 +1,77 @@
 from sqlalchemy import Integer, ForeignKey, String, Column, Boolean, DateTime, Float
 from .database import Base
 from sqlalchemy.orm import relationship
-# import datetime
+import datetime
 
-# class Season(Base):
-#     __tablename__ = "season"
-#     id = Column(Integer, primary_key=True, index=True)
-#     spring = Column(Boolean, default=False)
-#     summer = Column(Boolean, default=False)
-#     autumn= Column(Boolean, default=False)
-#     winter = Column(Boolean, default=False)
+class Entities(Base):
+    __tablename__ = "Entities"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
 
-#     season_to_product = relationship("product")
-#     season_to_sells = relationship("sells")
+    stockings_to_entities = relationship("Stockings", back_populates = "entities_to_stockings")
 
-# class Product(Base):
-#     __tablename__ = "product"
-#     id = Column(Integer, primary_key=True, index=True)
-#     name = Column(String)
-#     category = Column(String)
-#     season_id = Column(Integer, ForeignKey("season.id"))
-#     price = Column(Float)
-#     margin = Column(Float)
-#     stock = Column(Float)
-#     stock_min = Column(Float)
-#     stock_max = Column(Float)
-#     lifetime = Column(Integer)
+class Stockings(Base):
+    __tablename__ = "Stockings"
+    id = Column(Integer, primary_key=True, index=True)
+    EntityId = Column(Integer, ForeignKey("Entities.id"))
 
-#     sells_to_product = relationship("ProductSells", back_populates="product_to_sells")
-#     trash_to_product = relationship("Trash", back_populates="product_to_trash")
+    entities_to_stockings = relationship("Entities", back_populates = "stockings_to_entities")
+    products_to_stockings = relationship("Products", back_populates = "stockings_to_products")
 
-# class Sells(Base):
-#     __tablename__ = "sells"
-#     id = Column(Integer, primary_key=True, index=True)
-#     product_id = Column(Integer, ForeignKey("product.id"))
-#     quantity = Column(Float)
-#     discount = Column(Float)
-#     season_id = Column(Integer, ForeignKey("season.id"))
-#     dayofweek = Column(String)
-#     monthofsell = Column(Integer)
-#     dayofsell = Column(Integer)
-#     yearofsell = Column(Integer)
-#     publicholiday = Column(Boolean, default=False)
+class Categories(Base):
+    __tablename__ = "Categories"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
 
-#     product_to_sells = relationship("Product", back_populates="sells_to_product")
-#     season_to_sells = relationship("Season", back_populates="sells_to_season")
-#     sells_to_store = relationship("Store")
+    categories_to_product = relationship("Products")
 
-# class Store(Base):
-#     __tablename__ = "store"
-#     id = Column(Integer, primary_key=True, index=True)
-#     name = Column(String)
-#     sells_id = Column(Integer, ForeignKey("sells.id"))
+class Products(Base):
+    __tablename__ = "Product"
+    id = Column(Integer, primary_key=True, index=True)
+    CategorieId = Column(Integer, ForeignKey("Categories.id"))
+    name = Column(String)
+    quantity_unit = Column(String)
+    price = Column(Float)
+    pricePerLiterOrKg = Column(Float)
+    lifetime = Column(Integer)
+    StockingId = Column(Integer, ForeignKey("Stockings.id"))
+    stock_min = Column(Float)
+    stock_max = Column(Float)
+    quantity = Column(Float)
+    # "margin" could be great
 
-# class Trash(Base):
-#     __tablename__ = "trash"
-#     id = Column(Integer, primary_key=True, index=True)
-#     product_id = Column(Integer, ForeignKey("product.id"))
-#     # date = Column(String, default=datetime.date.today().strftime("%d%m%Y"))
-#     date_sell = Column(DateTime)
-#     date_prod = Column(DateTime)
-#     quantity = Column(Float)
-#     rehabilitate = Column(Boolean, default=False)
-#     gift = Column(Boolean, default=False)
+    stockings_to_products = relationship("Stockings", back_populates="products_to_stockings")
+    sells_to_products = relationship("ProductSells", back_populates="products_to_sells")
+    trashes_to_products = relationship("Trashes", back_populates="products_to_trashes")
 
-#     product_to_trash = relationship("Product", back_populates="trash_to_product")
+class DaySells(Base):
+    __tablename__= "DaySells"
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(DateTime)
+    # date = Column(String, default=datetime.date.today().strftime("%d%m%Y"))
+    # find a way to transform date in : dayoftheweek, dayofthemonth, monthoftheyear, publicholidays, season
+
+    day_to_sells = relationship("ProductSells")
+
+class ProductSells(Base):
+    __tablename__ = "ProductSells"
+    id = Column(Integer, primary_key=True, index=True)
+    DaySellId = Column(Integer, ForeignKey("DaySells.id"))
+    ProductId = Column(Integer, ForeignKey("Products.id"))
+    quantity = Column(Float)
+    # "discount" could be great
+
+    products_to_sells = relationship("Products", back_populates="sells_to_products")
+
+
+class Trashes(Base):
+    __tablename__ = "Trashes"
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(DateTime)
+    rehabilitate = Column(Boolean, default=False)
+    gift = Column(Boolean, default=False)
+    ProductId = Column(Integer, ForeignKey("Products.id"))
+    quantity = Column(Float)
+    dateProd = Column(DateTime)
+
+    products_to_trashes = relationship("Products", back_populates="trashes_to_products")

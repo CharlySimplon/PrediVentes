@@ -8,3 +8,12 @@ from . import models, schemas
 
 def get_all_entities(db : Session):
     return db.query(models.Entities).all()
+
+def get_all_categories(db : Session):
+    return db.query(models.Categories).all()
+
+def get_category_by_id(db : Session, id: int):
+    return db.query(models.Categories).filter(models.Categories.id == id).all()
+
+# def get_product_by_id(db : Session, id: int):
+#     return db.query(models.Products).filter(models.Products.id == id).all()

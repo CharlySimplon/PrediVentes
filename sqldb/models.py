@@ -26,7 +26,7 @@ class Categories(Base):
     categories_to_product = relationship("Products")
 
 class Products(Base):
-    __tablename__ = "Product"
+    __tablename__ = "Products"
     id = Column(Integer, primary_key=True, index=True)
     CategorieId = Column(Integer, ForeignKey("Categories.id"))
     name = Column(String)

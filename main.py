@@ -1,9 +1,11 @@
 import uvicorn
-from fastapi import FastAPI, APIRouter, Depends, HTTPException
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, Query
 
 from sqldb import crud, models, schemas
 from sqldb.database import SessionLocal, engine, get_db
 from sqlalchemy.orm import Session
+
+from typing import Optional
 
 app = FastAPI()
 api_router = APIRouter()
@@ -37,6 +39,22 @@ def read_product_by_id(id: int, db : Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Entity ID not found")
     return product
 
+@api_router.get("/search/", status_code=200)
+def search_recipes(
+    *,
+    keyword: Optional[str] = Query(None, min_length=3, example="chicken"),
+    max_results: Optional[int] = 10,
+    db: Session = Depends(get_db),
+) -> dict:
+    """
+    Search for recipes based on label keyword
+    """
+    recipes = crud.recipe.get_multi(db=db, limit=max_results)
+    if not keyword:
+        return {"results": recipes}
+
+    results = filter(lambda recipe: keyword.lower() in recipe.label.lower(), recipes)
+    return {"results": list(results)[:max_results]}
 
 
 app.include_router(api_router)
@@ -51,6 +69,8 @@ if __name__ == "__main__":
 
 #     for item in session.query(Queue).all():
 #         out.writerow([item.id, item.description])
+
+
 
 
 

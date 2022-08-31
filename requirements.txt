@@ -1,5 +1,5 @@
 fastapi
-uvicorn
-gunicorn
+gunicorn == 20.1.0
+uvicorn == 0.17.5
 sqlalchemy
 

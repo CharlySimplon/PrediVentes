@@ -7,10 +7,11 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL").replace('postgres://','postgresql://')
+# SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL").replace('postgres://','postgresql://')
+
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:123soleil@localhost:5432/leclerc_test"
-# SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL").replace('postgres://','postgresql://')
+SQLALCHEMY_DATABASE_URL = "postgresql://WelleatAdminLeclerc:Gaudec42@leclerc-welleat.postgres.database.azure.com:5432/postgres"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 

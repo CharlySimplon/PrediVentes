@@ -2,6 +2,4 @@ fastapi
 uvicorn
 gunicorn
 sqlalchemy
-os
-psycopg2
-dotenv
+

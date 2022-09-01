@@ -12,7 +12,7 @@
 
 # A. Prédiction des besoins de production <a id="production"></a>
 
-<img align="right" src="/img/production.jpg" width=350>
+<img align="right" src="/img/production.jpg" width=400>
 
 L'API va requêter la BDD d'un magasin et récupérer les informations pertinentes (ex : jour de vente, prix de vente, quantitée vendue, etc) afin de générer un dataset permettant au modèle de retourner un fichier de prédictions en besoin de production par périodes données (date de début & date de fin).
 

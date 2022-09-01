@@ -12,22 +12,24 @@
 
 # A. Prédiction des besoins de production <a id="production"></a>
 
+<img align="right" src="/img/production.jpg" width=350>
+
 L'API va requêter la BDD d'un magasin et récupérer les informations pertinentes (ex : jour de vente, prix de vente, quantitée vendue, etc) afin de générer un dataset permettant au modèle de retourner un fichier de prédictions en besoin de production par périodes données (date de début & date de fin).
 
 ( Les prédictions en besoin de production renvoyées à l'API Back vont lui permettre de calculer les besoins en matières premières et en conditionnements. )
 <br clear="right"/>
 
-<img align="right" src="/img/production.jpg" width=350>
+
 
 ***
 
 # B. Répartition des tâches <a id="repartition"></a>
 
+<img align="right" src="/img/repartition.jpg" width=350>
+
 L'API va requêter la BDD d'un magasin et récupérer les informations pertinentes (ex : temps que nécessite une tâche, niveau de compétence requis, employés, etc) afin de répartir et prioriser les tâches des employés de manière efficiente pour la semaine à venir en fonction des besoins en production.
 <br clear="right"/>
 
-
-<img align="right" src="/img/repartition.jpg" width=350>
 
 ***
 

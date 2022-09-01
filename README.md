@@ -35,6 +35,8 @@ L'API va requêter la BDD d'un magasin et récupérer les informations pertinent
 
 # C. Lecteur d'étiquette <a id="lecteur"></a>
 
+<img align="right" src="/img/lecteur.png" width=300>
+
 L'API va récupérer la photo d'une étiquette, faire une reconnaissance optique des caractères (lettres et numéros) qui y sont inscrits et renvoyer les informations suivantes à l'API Back :
 
 - Numéro de lot
@@ -43,4 +45,4 @@ L'API va récupérer la photo d'une étiquette, faire une reconnaissance optique
 
 <br clear="right"/>
 
-<img align="right" src="/img/lecteur.png" width=350>
+

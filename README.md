@@ -17,7 +17,7 @@ L'API va requêter la BDD d'un magasin et récupérer les informations pertinent
 ( Les prédictions en besoin de production renvoyées à l'API Back vont lui permettre de calculer les besoins en matières premières et en conditionnements. )
 <br clear="right"/>
 
-<img align="right" src="/img/production.jpg" width=450>
+<img align="right" src="/img/production.jpg" width=350>
 
 ***
 
@@ -27,7 +27,7 @@ L'API va requêter la BDD d'un magasin et récupérer les informations pertinent
 <br clear="right"/>
 
 
-<img align="right" src="/img/repartition.jpg" width=450>
+<img align="right" src="/img/repartition.jpg" width=350>
 
 ***
 
@@ -41,4 +41,4 @@ L'API va récupérer la photo d'une étiquette, faire une reconnaissance optique
 
 <br clear="right"/>
 
-<img align="right" src="/img/lecteur.png" width=450>
+<img align="right" src="/img/lecteur.png" width=350>

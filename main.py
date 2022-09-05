@@ -6,7 +6,8 @@ from sqldb.database import SessionLocal, engine, get_db
 from sqlalchemy.orm import Session
 import csv
 
-# import fcntl
+import fcntl
+# import msvcrt
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -16,29 +17,25 @@ async def tick():
 app = FastAPI()
 api_router = APIRouter()
 
-# @api_router.listener('before_server_start')
-# async def initialize_scheduler(app, loop):
-#     try:
 
-#         # +++++++
-#         _ = open("/tmp/test.lock","w")
-#         _fd = _.fileno()
-#         fcntl.lockf(_fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
-#         # +++++++
-
-#         scheduler = AsyncIOScheduler({'event_loop': loop})
-#         scheduler.add_job(tick, 'interval', seconds=1)
-#         scheduler.start()
-#     except BlockingIOError:
-#         pass
-
-@app.on_event('startup')
+@api_router.on_event('startup')
 def scheduler_test():
-    scheduler = AsyncIOScheduler()
-    scheduler.add_job(tick, 'cron', minute="00,15,30,50")#minute= "*/1")#second='*/5')
-    # scheduler.add_job(func.process_data_test, 'cron', second='*/5')
-    scheduler.print_jobs()
-    scheduler.start()
+
+    try:
+        _ = open("./tmp/test.lock","w")
+        _fd = _.fileno()
+        # msvcrt.locking(_fd,msvcrt.LK_LOCK|msvcrt.LK_NBLCK,0) #pour Windows
+        fcntl.lockf(_fd,fcntl.LOCK_EX|fcntl.LOCK_NB) #pour Linux
+
+
+        scheduler = AsyncIOScheduler()
+        scheduler.add_job(tick, 'cron', minute="00,21,25,30,35")#minute= "*/1")#second='*/5')
+        # scheduler.add_job(func.process_data_test, 'cron', second='*/5')
+        scheduler.print_jobs()
+        scheduler.start()
+
+    except BlockingIOError:
+        pass
 
 
 

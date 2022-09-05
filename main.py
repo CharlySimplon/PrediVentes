@@ -11,8 +11,12 @@ import fcntl
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-async def tick():
-    print('Tick! The time is: %s' % datetime.now())
+async def testcron():
+    with open("./tmp/test.txt", "w") as file:
+        file.write("Message écrit à: %s' % datetime.now()")
+
+
+    
 
 app = FastAPI()
 api_router = APIRouter()
@@ -24,12 +28,14 @@ def scheduler_test():
     try:
         _ = open("./tmp/test.lock","w")
         _fd = _.fileno()
-        # msvcrt.locking(_fd,msvcrt.LK_LOCK|msvcrt.LK_NBLCK,0) #pour Windows
-        fcntl.lockf(_fd,fcntl.LOCK_EX|fcntl.LOCK_NB) #pour Linux
+        # Pour Windows :
+        # msvcrt.locking(_fd,msvcrt.LK_LOCK|msvcrt.LK_NBLCK,0)
+        #Pour Linux :
+        fcntl.lockf(_fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
 
 
         scheduler = AsyncIOScheduler()
-        scheduler.add_job(tick, 'cron', minute="00,21,25,30,35")#minute= "*/1")#second='*/5')
+        scheduler.add_job(testcron, 'cron', minute="00,05,10,15,20,25,30,38,40,45,50,55")#minute= "*/1")#second='*/5')
         # scheduler.add_job(func.process_data_test, 'cron', second='*/5')
         scheduler.print_jobs()
         scheduler.start()

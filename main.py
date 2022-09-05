@@ -12,10 +12,11 @@ from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 async def testcron():
-    today = datetime.datetime.today().strftime("%m/%d/%Y, %H:%M:%S")
+    today = datetime.datetime.now()
+    date_time = today.strftime("%m/%d/%Y, %H:%M:%S")
 
     with open("./tmp/test.txt", 'a') as file:
-        file.write(today+"\n")
+        file.write("Test fait à :",date_time)
     file.close()
 
 

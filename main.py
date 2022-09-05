@@ -12,11 +12,11 @@ from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 async def testcron():
-    today = datetime.datetime.now()
+    today = datetime.now()
     date_time = today.strftime("%m/%d/%Y, %H:%M:%S")
 
     with open("./tmp/test.txt", 'a') as file:
-        file.write("Test fait à :",date_time)
+        file.write("Test fait à :" + date_time + "\n")
     file.close()
 
 
@@ -39,7 +39,7 @@ def scheduler_test():
 
 
         scheduler = AsyncIOScheduler()
-        scheduler.add_job(testcron, 'cron', minute="00,05,10,15,20,25,30,38,40,45,50,55")#minute= "*/1")#second='*/5')
+        scheduler.add_job(testcron, 'cron', minute="00,05,10,14,15,18,19,20,21,22,24,25,30,38,40,45,50,55")#minute= "*/1")#second='*/5')
         # scheduler.add_job(func.process_data_test, 'cron', second='*/5')
         scheduler.print_jobs()
         scheduler.start()

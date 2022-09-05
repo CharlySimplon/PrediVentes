@@ -4,9 +4,42 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException
 from sqldb import crud, models, schemas
 from sqldb.database import SessionLocal, engine, get_db
 from sqlalchemy.orm import Session
+import csv
+
+# import fcntl
+from datetime import datetime
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+async def tick():
+    print('Tick! The time is: %s' % datetime.now())
 
 app = FastAPI()
 api_router = APIRouter()
+
+# @api_router.listener('before_server_start')
+# async def initialize_scheduler(app, loop):
+#     try:
+
+#         # +++++++
+#         _ = open("/tmp/test.lock","w")
+#         _fd = _.fileno()
+#         fcntl.lockf(_fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
+#         # +++++++
+
+#         scheduler = AsyncIOScheduler({'event_loop': loop})
+#         scheduler.add_job(tick, 'interval', seconds=1)
+#         scheduler.start()
+#     except BlockingIOError:
+#         pass
+
+@app.on_event('startup')
+def scheduler_test():
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(tick, 'cron', minute="00,15,30,50")#minute= "*/1")#second='*/5')
+    # scheduler.add_job(func.process_data_test, 'cron', second='*/5')
+    scheduler.print_jobs()
+    scheduler.start()
+
 
 
 @api_router.get("/")
@@ -23,6 +56,12 @@ async def read_categories(db: Session = Depends(get_db)):
     categories = crud.get_all_categories(db)
     return categories
 
+@api_router.get("/products/")
+async def read_products(db: Session = Depends(get_db)):
+    products = crud.get_all_products(db)
+    return products
+
+
 @api_router.get("/categories/{id}")
 def read_category_by_id(id: int, db : Session = Depends(get_db)):
     category = crud.get_category_by_id(db, id=id)
@@ -30,7 +69,7 @@ def read_category_by_id(id: int, db : Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Entity not found")
     return category
 
-@api_router.get("/product/{id}")
+@api_router.get("/products/{id}")
 def read_product_by_id(id: int, db : Session = Depends(get_db)):
     product = crud.get_product_by_id(db, id=id)
     if product is None :
@@ -51,6 +90,9 @@ if __name__ == "__main__":
 
 #     for item in session.query(Queue).all():
 #         out.writerow([item.id, item.description])
+
+
+
 
 
 

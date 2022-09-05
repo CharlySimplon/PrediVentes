@@ -12,6 +12,9 @@ def get_all_entities(db : Session):
 def get_all_categories(db : Session):
     return db.query(models.Categories).all()
 
+def get_all_products(db : Session):
+    return db.query(models.Products).all()
+
 def get_category_by_id(db : Session, id: int):
     return db.query(models.Categories).filter(models.Categories.id == id).all()
 

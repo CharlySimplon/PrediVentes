@@ -34,6 +34,7 @@ class Products(Base):
     price = Column(Float)
     pricerPerLiterOrKg = Column(Float)
     lifetime = Column(Integer)
+    composition = Column(String)
     StockingId = Column(Integer, ForeignKey("Stockings.id"))
     stock_min = Column(Float)
     stock_max = Column(Float)

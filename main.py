@@ -12,7 +12,7 @@ from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 async def testcron():
-    with open("./tmp/test.txt", "w") as file:
+    with open("./tmp/test.txt", "a") as file:
         file.write("Message écrit à: %s' % datetime.now()")
 
 
